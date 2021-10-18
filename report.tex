@@ -71,48 +71,14 @@
 \maketitle
 
 \begin{abstract}
-The Haskell portion of this report is a tutorial for programmers with experience in imperative languages to learn functional programming, and more specifically, Haskell. From preparation of learning Haskell to the completion of a small Haskell program, this tutorial will be going over many of the basics in a follow-along fashion. There will be multiple small tasks which make up the entirety of the tutorial. It is meant to be unique in the aspect that it focuses on not only the general differences between imperative and functional programming, but also notes the syntax differences to avoid any confusion and frustration. Therefore, this tutorial is suitable for any programmers who are accustomed to programming in imperative languages and find functional programming to be less intuitive.
+The Haskell portion of this report is a kickstart guide for programmers with experience in imperative languages to learn functional programming, and more specifically, Haskell. From preparation of learning Haskell to the completion of a small Haskell program, this guide will be going over many of the basics in a follow-along fashion. There will be multiple small tasks which make up the entirety of the guide. It is meant to be unique in the aspect that it focuses on not only the general differences between imperative and functional programming, but also notes the syntax differences to avoid any confusion and frustration. Therefore, this guide is suitable for any programmers who are accustomed to programming in imperative languages and find functional programming to be less intuitive.
 \end{abstract}
 
 \tableofcontents
 
 \section{Introduction}\label{intro}
 
-Replace Section~\ref{intro} with your own short introduction. 
-
-\subsection{General Remarks}
-
-First you need to \href{https://www.latex-project.org/get/}{download and install} LaTeX.\footnote{Links are typeset in blue, but you can change the layout and color of the links if you locate the  \texttt{hypersetup} command.}
-%
-Alternatively, you can use an online editor such as \href{https://www.overleaf.com/learn}{Overleaf}. I prefer to have my own installation, but to get started Overleaf may be easier. 
-
- 
-\medskip\noindent
-LaTeX is a markup language (as is, for example, HTML). The source code is in a \verb+.tex+ file and needs to be compiled for viewing, usually to \verb+.pdf+.
-
-
-\medskip\noindent
-If you want to change the default layout, you need to type commands. For example, \verb+\medskip+ inserts a medium vertical space and \verb+\noindent+ starts a paragraph without indentation.
- 
-\medskip\noindent
-Mathematics is typeset between double dollars, for example $$x+y=y+x.$$
-
-
-\subsection{LaTeX Resources}
-
-I start a new subsection, so that you can see how it appears in the table of contents.
-
-\begin{itemize}
-\item This is how you itemize in LaTeX.
-\item I think a good way to learn LaTeX is by starting from this template file and build it up step by step. Often stackoverflow will answer your questions. But here are a few resources:
-  \begin{enumerate}
-  \item \href{https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes}{Learn LaTeX in 30 minutes}
-  \item \href{https://www.latex-project.org/}{LaTeX – A document preparation system}\end{enumerate}
-\end{itemize}
-
-\subsection{Plagiarism}
-
-To avoid plagiarism, make sure that in addition to \cite{PL} you also cite all the external sources you use.
+First and foremost, this report will cover the programming language: Haskell. As stated in the abstract, Haskell will be examined in a kickstart guide format for programmers that are used to imperative programming languages.
 
 \section{Haskell}\label{haskell}
 
@@ -121,10 +87,10 @@ To avoid plagiarism, make sure that in addition to \cite{PL} you also cite all t
 To learn and become familiar with Haskell, it is best that you prepare properly. There are many ways one can set themself up for success. I will share my opinions on the best ways to introduce yourself to Haskell.
 
 \medskip\noindent
-For installation of Haskell, see this page https://hackmd.io/@alexhkurz/Hk86XnCzD. It provides adequate information and links for installation. If lucky, this process should not take long. Keep in mind that if you are using Windows, it may be optimal to use Windows Subsystem for Linux (WSL) LINK or Docker LINK.
+For installation of Haskell, see this page \href{https://hackmd.io/@alexhkurz/Hk86XnCzD}{this page}. It provides adequate information and links for installation. If lucky, this process should not take long. Keep in mind that if you are using Windows, it may be optimal to use \href{https://docs.microsoft.com/en-us/windows/wsl/install}{Windows Subsystem for Linux (WSL)} or \href{https://www.docker.com/get-started}{Docker}.
 
 \medskip\noindent
-It is also advantageous to use a good IDE that supports Haskell through plugins. I recommend Visual Studio code with the “Haskell Syntax Highlighting” plugin LINK. It colorizes the code which makes viewing easier in all aspects. The syntax will be easier to get used to if you can consistently associate different colors with variables, functions, etc. I started without one of these plugins, and when the font is all white, things get confusing very quickly. Haskell Runner LINK as another extension for Visual Studio Code that allows you to run haskell files within the IDE. However, I personally found that a classic terminal window works fine. You may also use other IDEs such as Emacs, Atom, or IntelliJ.
+It is also advantageous to use a good IDE that supports Haskell through plugins. I recommend \href{https://code.visualstudio.com/}{Visual Studio Code} with the \href{https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell}{Haskell Syntax Highlighting} plugin. It colorizes the code which makes viewing easier in all aspects. The syntax will be easier to get used to if you can consistently associate different colors with variables, functions, etc. I started without one of these plugins, and when the font is all white, things get confusing very quickly. \href{https://marketplace.visualstudio.com/items?itemName=Meowcolm024.has-go}{Haskell Runner} as another extension for Visual Studio Code that allows you to run haskell files within the IDE. However, I personally found that a classic terminal window works fine. You may also use other IDEs such as Emacs, Atom, or IntelliJ.
 
 \medskip\noindent
 In terms of taking your first steps in Haskell, it is best to understand your own learning style to know which additional sources to focus on. Obviously, it is best to learn from a variety of methods such as reading, watching videos, listening to professors, and trying it yourself. But knowing which method to prioritize is very important. It is always best though to try programming Haskell for yourself, as a true kinesthetic experience is a must. You can use such additional sources to assist you in following this tutorial and the small tasks that come with it.
@@ -145,18 +111,23 @@ Functional Programming differences to prepare yourself for:
   
   \item Functional programming languages are declarative instead of imperative. Imperative programming uses a sequence of instructions on how to complete a task to obtain the result. On the other hand, in declarative programming the result is declared as the outcome of function applications. View this example:
 
-  \begin{lstlisting}
-  -- run the transition function on a word and a state
-  run :: (State -> Char -> State) -> State -> [Char] -> State
-  run delta q [] = q
-  run delta q (c:cs) = run delta (delta q c) cs 
+  \begin{lstlisting}[style=HaskellStyle]
+  -- HASKELL
+  sum [] = 0
+  sum (x:xs) = x + sum xs
   \end{lstlisting}
 
-  \begin{lstlisting}
-  -- run the transition function on a word and a state
-  run :: (State -> Char -> State) -> State -> [Char] -> State
-  run delta q [] = q
-  run delta q (c:cs) = run delta (delta q c) cs 
+  \begin{lstlisting}[style=CStyle]
+  // C CODE
+  int sum(int *arr, int arrSize) {
+    int i;
+    int sum = 0;
+  
+    for (i = 0; i < arrSize; i++)
+      sum += arr[i];
+  
+    return sum;
+  }
   \end{lstlisting}
 
   Notice how in the imperative C code, there is explicit initialization of the variables and an explicit loop that will modify the data. These are explicit instructions for how to calculate the sum. Therefore it is imperative. On the contrary, the Haskell code, which is declarative, simply declares how the result is found with the use of addition and recursion. The second line of code is basically a mathematical function which contrasts with the C code, which is more like a series of instructions.
@@ -164,51 +135,59 @@ Functional Programming differences to prepare yourself for:
   \item Another key difference of functional programming that imperative programmers may not be used to is lazy evaluation. With lazy evaluation, expressions only get evaluated if they need to be. With imperative languages which are considered “strict”, an entire function can run, even if some of the computation is excessive and a waste of time and energy. Haskell, for example, will only compute what is needed to solve the task at hand. This is because evaluation is completely deferred until results are needed by other computations. This is obviously an advantage in the aspect that it can be much faster and efficient in certain scenarios. Also, since Haskell has these “non-strict” semantics, it allows for the processing of formally infinite data.
 \end{enumerate}
 
-\subsection{Types, Functions, and More}
+\subsection{Declecaring Variables with Types}
 \medskip\noindent
-Now that we have primed ourselves for learning Haskell, installed the proper software, and configured our IDE, we will begin with the basics such as types, functions, and more.
+Now that we have primed ourselves for learning Haskell, installed the proper software, and configured our IDE, we will begin with the basics such as types, functions, and more.Similar to imperative languages, when declaring variables in Haskell we must associate a type so that the computer knows what it is dealing with. 
 
-\subsubsection{Declecaring Variables with Types}
-\medskip\noindent
-Similar to imperative languages, when declaring variables in Haskell we must associate a type so that the computer knows what it is dealing with. 
+\begin{lstlisting}[style=HaskellStyle]
+-- HASKELL
+x :: Integer
+x = 1
 
-\begin{lstlisting}
--- run the transition function on a word and a state
-run :: (State -> Char -> State) -> State -> [Char] -> State
-run delta q [] = q
-run delta q (c:cs) = run delta (delta q c) cs 
+y :: Bool
+y = true
+
+pi :: Float
+pi = 3.1415
 \end{lstlisting}
 
-\begin{lstlisting}
--- run the transition function on a word and a state
-run :: (State -> Char -> State) -> State -> [Char] -> State
-run delta q [] = q
-run delta q (c:cs) = run delta (delta q c) cs 
+\begin{lstlisting}[style=CStyle]
+// C CODE
+int x;
+x = 1;
+
+bool y;
+y = true;
+
+float pi;
+pi = 3.1415;
 \end{lstlisting}
 
 \medskip\noindent
 At this point, the differences between Haskell and C are not too drastic, but be sure to note the differences in syntax and remember that the Haskell variables are immutable unlike the C variables.
 
-\subsubsection{Defining a Function}
+\subsection{Defining a Function}
 \medskip\noindent
 To define a function follow the example:
 
-\begin{lstlisting}
--- run the transition function on a word and a state
-run :: (State -> Char -> State) -> State -> [Char] -> State
-run delta q [] = q
-run delta q (c:cs) = run delta (delta q c) cs 
+\begin{lstlisting}[style=HaskellStyle]
+-- HASKELL
+out_of_range :: Integer -> Integer -> Integer -> Bool
+out_of_range min max val = val < min || val > max
 \end{lstlisting}
 
-\begin{lstlisting}
--- run the transition function on a word and a state
-run :: (State -> Char -> State) -> State -> [Char] -> State
-run delta q [] = q
-run delta q (c:cs) = run delta (delta q c) cs 
+\begin{lstlisting}[style=CStyle]
+// C CODE
+bool out_of_range(int min, int max, int val) {
+  if (val < min || x > max)
+    return true;
+  else
+    return false;
+}
 \end{lstlisting}
 
 \medskip\noindent
-Similar to declaration variables with types, we must do the same with functions. The first line first states the name of the function followed by “ :: .”. After this, the function parameter types are listed. In this case there are three integer types as the parameters that represent the min, max, and input value. The last type, which in this case is a boolean, is at the end. This may look confusing considering all of the types next to each other and separated with “->”. It is important to remember that the last type is the return type and there can be as many input types as needed. Also using “ :: “ between a function or variable name and its type can look strange at first but it is generally easy to get used to. In a way, it can be advantageous in the aspect that it stands out which is optimal when defining the type of a new variable.
+Similar to declaration variables with types, we must do the same with functions. The first line first states the name of the function followed by “ :: .”. After this, the function parameter types are listed. In this case there are three integer types as the parameters that represent the min, max, and input value. The last type, which in this case is a boolean, is at the end. This may look confusing considering all of the types next to each other and separated with “-$>$”. It is important to remember that the last type is the return type and there can be as many input types as needed. Also using “ :: “ between a function or variable name and its type can look strange at first but it is generally easy to get used to. In a way, it can be advantageous in the aspect that it stands out which is optimal when defining the type of a new variable.
 
 \medskip\noindent
 The second line actually declares how the function obtains the result. The function name followed by the input variable names are located on the left hand side of the equals sign. On the other side, the computation is made with the assistance of the less than and greater than operands (which are functions themselves). In this case, it simply checks if the value is below the minimum or above the maximum.
@@ -216,30 +195,28 @@ The second line actually declares how the function obtains the result. The funct
 \medskip\noindent
 Notice how this function declaration, when it comes down to it, is really a boolean value. This contrasts with the C function which is instructions to get this same value. This ties back to the aspect of declarative versus imperative programming.
 
-\subsubsection{Calling a Function}
+\subsection{Calling a Function}
 \medskip\noindent
 Calling a function is rather simple. View this example:
 
-\begin{lstlisting}
--- run the transition function on a word and a state
-run :: (State -> Char -> State) -> State -> [Char] -> State
-run delta q [] = q
-run delta q (c:cs) = run delta (delta q c) cs 
+\begin{lstlisting}[style=HaskellStyle]
+-- HASKELL
+result :: Bool
+result = out_of_range 4 7 5
 \end{lstlisting}
 
-\begin{lstlisting}
--- run the transition function on a word and a state
-run :: (State -> Char -> State) -> State -> [Char] -> State
-run delta q [] = q
-run delta q (c:cs) = run delta (delta q c) cs 
+\begin{lstlisting}[style=CStyle]
+// C CODE
+bool result;
+result = out_of_range(4, 7 ,5)
 \end{lstlisting}
 
 \medskip\noindent
 The function is simply called by typing the name of the function followed by the inputs. In this particular example, we are assigning the result to a boolean variable for sample context. The result would be false. One syntax difference that may take some getting used to is the fact that there are no parentheses in Haskell like there usually is in imperative languages such as C in this example. I personally always associated functions and calling functions with parentheses, and when working with Haskell it took me a while to get used to seeing a function with its parameters simply listed out behind it with spaces. Furthermore, remember to use the right type as inputs to the function. If, for example, a float was used instead of an integer, it would create a type error.
 
-\subsubsection{Function "let"}
+\subsection{Function "let"}
 \medskip\noindent
-With Haskell, you may assign a value to a name, which can later be used to define the last expression or result. This can create more flexibility when programming with Haskell. Consider this example: EXAMPLE 4
+With Haskell, you may assign a value to a name, which can later be used to define the last expression or result. This can create more flexibility when programming with Haskell. Consider this example:
 
 \begin{lstlisting}[style=HaskellStyle]
 -- HASKELL
@@ -264,9 +241,9 @@ bool out_of_range(int minBound, int maxBound, int val) {
 \medskip\noindent
 Take your time observing the format of the syntax. The Haskell code is very similar to C in this instance. One of the biggest differences in terms of appearance is how the function declaration uses a “let” and an “in” statement. With this format, Haskell let functions are still functional programming since the function is still equivalent to a boolean value. Unlike the C code, there were no step-by-step instructions that led to a return type.
 
-\subsubsection{Function "where"}
+\subsection{Function "where"}
 \medskip\noindent
-Similar to “let”, “where” allows you to use multiple variables with assigned values to define the function. However, “where” does this after the initial function declaration. View this example: EXAMPLE 5
+Similar to “let”, “where” allows you to use multiple variables with assigned values to define the function. However, “where” does this after the initial function declaration. View this example:
 
 \begin{lstlisting}[style=HaskellStyle]
 -- HASKELL
@@ -280,9 +257,9 @@ out_of_range minBound maxBound val = out_of_lower_bound || out_of_upper_bound
 \medskip\noindent
 In my opinion, “where” functions look much cleaner and readable than “let” functions, but your choice is obviously up to you. Also, the corresponding C function would just be the same as the previous C example for “let”.
 
-\subsubsection{Using “if”, “else if”, “else”, and “then”}
+\subsection{Using “if”, “else if”, “else”, and “then”}
 \medskip\noindent
-In Haskell you may also use “if”, “else if”, and “if” statements. We will use them in the same function for convenience. View the example below: EXAMPLE 6
+In Haskell you may also use “if”, “else if”, and “if” statements. We will use them in the same function for convenience. View the example below:
 
 \begin{lstlisting}[style=HaskellStyle]
 -- HASKELL
@@ -309,7 +286,7 @@ bool out_of_range(int minBound, int maxBound, int val) {
 If you saw, the statements are not too different from imperative C. However, they are followed by “then” which precedes the resulting value of the function determined by the boolean statement. Also, keep in mind that in Haskell, “True” and “False” are capitalized unlike C.
 
 \medskip\noindent
-Furthermore, this can be simplified syntactically by using guards: EXAMPLE 6 cont.
+Furthermore, this can be simplified syntactically by using guards:
 
 \begin{lstlisting}[style=HaskellStyle]
 -- HASKELL
@@ -325,7 +302,7 @@ out_of_range minBound maxBound val
 In imperative languages it is routine to use loops in order to obtain results and calculations from whatever the computation may be. However, in Haskell loops do not exist. You may wonder, “How am I supposed to accomplish anything then?”. The answer is: recursion. If you are unfamiliar with recursion, it may be good to practice it in an imperative language first. Here https://www.geeksforgeeks.org/c-program-for-fibonacci-numbers/ is an article on writing a recursive C program for Fiibonacci numbers. Remember that functions are recursive when they call themselves.
 
 \medskip\noindent
-For our example, we will also be doing a recursive Fibonacci function. We will explore pattern matching in this example too. View the Haskell sample below: EXAMPLE 7
+For our example, we will also be doing a recursive Fibonacci function. We will explore pattern matching in this example too. View the Haskell sample below:
 
 \begin{lstlisting}[style=HaskellStyle]
 -- HASKELL
@@ -347,7 +324,7 @@ fib(n)=\begin{cases}
 \end{equation*}
 
 \medskip\noindent
-When calling the function, the designated body is chosen with comparison of arguments. In this instance if n is 0 or 1, 1 is returned. If n is greater than or equal to 2, Fibonacci expressions are executed and the recursion commences. The first two rows of this piecewise function act as base cases and the same goes for the Haskell code on lines two and three. It may also be easier to compare this piecewise function with a syntactically simplified version of the Haskell Fibonacci function with “|” guards. Here is that version: EXAMPLE 7 cont.
+When calling the function, the designated body is chosen with comparison of arguments. In this instance if n is 0 or 1, 1 is returned. If n is greater than or equal to 2, Fibonacci expressions are executed and the recursion commences. The first two rows of this piecewise function act as base cases and the same goes for the Haskell code on lines two and three. It may also be easier to compare this piecewise function with a syntactically simplified version of the Haskell Fibonacci function with “|” guards. Here is that version:
 
 \begin{lstlisting}[style=HaskellStyle]
 -- HASKELL
@@ -358,7 +335,7 @@ fib n | n == 0 = 1
 \end{lstlisting}
 
 \medskip\noindent
-Also, here is the imperative C code for the same function: EXAMPLE 7
+Also, here is the imperative C code for the same function:
 
 \begin{lstlisting}[style=CStyle]
 // C CODE
@@ -370,21 +347,6 @@ int fib(int n) {
 }
 \end{lstlisting}
 
-\subsection{Kurz Stuff}
-\medskip\noindent
-To typeset Haskell there are several possibilities. For the example below I took the LaTeX code from \href{https://stackoverflow.com/a/3175141/4600290}{stackoverflow} and the Haskell code from \href{https://hackmd.io/@alexhkurz/HylLKujCP}{my tutorial}.
-
-\begin{lstlisting}
--- run the transition function on a word and a state
-run :: (State -> Char -> State) -> State -> [Char] -> State
-run delta q [] = q
-run delta q (c:cs) = run delta (delta q c) cs 
-\end{lstlisting}
-
-\medskip\noindent
-This works well for short snippets of code. For entire programs, it is better to have external links to, for example, Github or \href{https://replit.com/@alexhkurz/automata01#main.hs}{Replit} (click on the "Run" button and/or the "Code" tab).
-
-
 \section{Programming Languages Theory}
 
 In this section you will show what you learned about the theory of programming languages. 
@@ -394,10 +356,11 @@ In this section you will show what you learned about the theory of programming l
 In this section you will describe a short project. It can either be in Haskell or of a theoretical nature,
 
 \section{Conclusions}\label{conclusions}
-Short conclusion. 
+At the beginning of this report, we explored Haskell by working with small examples and differentiating both syntax and theoretical difference between imperative C code and functional Haskell Code. This will be more elaborate when the rest of the report is completed.
 
 \begin{thebibliography}{99}
 \bibitem[PL]{PL} \href{https://github.com/alexhkurz/programming-languages-2021/blob/main/README.md}{Programming Languages 2021}, Chapman University, 2021.
+\bibitem[GD]{GD} \href{https://docs.google.com/document/d/1e3_r3ifWnFcBaKs21iCF-OhED9x0NcDK59SA80lQjXY/edit?usp=sharing}{Google Doc}, I will cite the sources linked at the end of this doc.
 \end{thebibliography}
 
 \end{document}
