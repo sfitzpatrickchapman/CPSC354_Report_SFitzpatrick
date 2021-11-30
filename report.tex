@@ -12,10 +12,13 @@
     urlcolor = blue,       % color of external links using \href
     linkcolor= blue,       % color of internal links 
     citecolor= blue,       % color of links to bibliography
-    filecolor= blue,        % color of file links
+    filecolor= blue,       % color of file links
     }
     
 \usepackage{listings}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{mathtools}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -60,7 +63,6 @@
   tabsize=3
 }
 
-
 \title{CPSC 353 Report}
 \author{Scott Fitzpatrick  \\ Chapman University}
 
@@ -84,7 +86,7 @@ First and foremost, this report will cover the programming language: Haskell. As
 
 \subsection{Preparation for Haskell}
 \medskip\noindent
-To learn and become familiar with Haskell, it is best that you prepare properly. There are many ways one can set themself up for success. I will share my opinions on the best ways to introduce yourself to Haskell.
+To learn and become familiar with Haskell, it is best that you prime yourself for success. I will share my opinions on the best ways to introduce yourself to Haskell.
 
 \medskip\noindent
 For installation of Haskell, see this page \href{https://hackmd.io/@alexhkurz/Hk86XnCzD}{this page}. It provides adequate information and links for installation. If lucky, this process should not take long. Keep in mind that if you are using Windows, it may be optimal to use \href{https://docs.microsoft.com/en-us/windows/wsl/install}{Windows Subsystem for Linux (WSL)} or \href{https://www.docker.com/get-started}{Docker}.
@@ -93,10 +95,7 @@ For installation of Haskell, see this page \href{https://hackmd.io/@alexhkurz/Hk
 It is also advantageous to use a good IDE that supports Haskell through plugins. I recommend \href{https://code.visualstudio.com/}{Visual Studio Code} with the \href{https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell}{Haskell Syntax Highlighting} plugin. It colorizes the code which makes viewing easier in all aspects. The syntax will be easier to get used to if you can consistently associate different colors with variables, functions, etc. I started without one of these plugins, and when the font is all white, things get confusing very quickly. \href{https://marketplace.visualstudio.com/items?itemName=Meowcolm024.has-go}{Haskell Runner} as another extension for Visual Studio Code that allows you to run haskell files within the IDE. However, I personally found that a classic terminal window works fine. You may also use other IDEs such as Emacs, Atom, or IntelliJ.
 
 \medskip\noindent
-In terms of taking your first steps in Haskell, it is best to understand your own learning style to know which additional sources to focus on. Obviously, it is best to learn from a variety of methods such as reading, watching videos, listening to professors, and trying it yourself. But knowing which method to prioritize is very important. It is always best though to try programming Haskell for yourself, as a true kinesthetic experience is a must. You can use such additional sources to assist you in following this tutorial and the small tasks that come with it.
-
-\medskip\noindent
-One of the most underrated aspects of preparation for learning anything is a proper mindset. For starting out in Haskell, this is very important. It is easy to make the mistake of assuming Haskell will be similar to other programming languages and that the process will feel familiar. This naive and costly mindset led me and some of my peers to fall behind after hitting unexpected and unfamiliar roadblocks. Be prepared to not only notice the differences in syntax, but rethink the functionality of code down to the core. Functional programming is much more theoretical and logic based. We will cover the details of this later. For now, it is best to prime yourself by preparing for completely new concepts that take mental flexibility to wrap your mind around. So be prepared to learn Haskell without any predispositions since things will seem somewhat different to imperative languages. It is also very important to pay close attention to the differences from imperative programming languages such as Python, Java, or C. For this tutorial, we will be comparing Haskell code with C.
+Here is a trap to be weary of: assuming Haskell will be similar to other programming languages and that the process will feel familiar. This naive and costly mindset led me and some of my peers to fall behind after hitting unexpected and unfamiliar roadblocks. Be prepared to not only notice the differences in syntax, but rethink the functionality of code down to the core. Functional programming is much more theoretical and logic based. We will cover the details of this later. For now, it is best to prime yourself by preparing for completely new concepts that take mental flexibility to wrap your mind around. So be prepared to learn Haskell without any predispositions since things will seem somewhat different to imperative languages. It is also very important to pay close attention to the differences from imperative programming languages such as Python, Java, or C. For this tutorial, we will be comparing Haskell code with C.
 
 \subsection{Introduction}
 \medskip\noindent
@@ -132,7 +131,7 @@ Functional Programming differences to prepare yourself for:
 
   Notice how in the imperative C code, there is explicit initialization of the variables and an explicit loop that will modify the data. These are explicit instructions for how to calculate the sum. Therefore it is imperative. On the contrary, the Haskell code, which is declarative, simply declares how the result is found with the use of addition and recursion. The second line of code is basically a mathematical function which contrasts with the C code, which is more like a series of instructions.
 
-  \item Another key difference of functional programming that imperative programmers may not be used to is lazy evaluation. With lazy evaluation, expressions only get evaluated if they need to be. With imperative languages which are considered “strict”, an entire function can run, even if some of the computation is excessive and a waste of time and energy. Haskell, for example, will only compute what is needed to solve the task at hand. This is because evaluation is completely deferred until results are needed by other computations. This is obviously an advantage in the aspect that it can be much faster and efficient in certain scenarios. Also, since Haskell has these “non-strict” semantics, it allows for the processing of formally infinite data.
+  \item Another key difference of functional programming that imperative programmers may not be used to is lazy evaluation. With lazy evaluation, expressions only get evaluated if they need to be. With imperative languages which are considered “strict”, an entire function can run, even if some of the computation is excessive and a waste of time and energy. Some functional programming languages such as Haskell will only compute what is needed to solve the task at hand. This is because evaluation is completely deferred until results are needed by other computations. This is obviously an advantage in the aspect that it can be much faster and efficient in certain scenarios. Also, since Haskell has these “non-strict” semantics, it allows for the processing of formally infinite data. 
 \end{enumerate}
 
 \subsection{Declecaring Variables with Types}
@@ -187,10 +186,10 @@ bool out_of_range(int min, int max, int val) {
 \end{lstlisting}
 
 \medskip\noindent
-Similar to declaration variables with types, we must do the same with functions. The first line first states the name of the function followed by “ :: .”. After this, the function parameter types are listed. In this case there are three integer types as the parameters that represent the min, max, and input value. The last type, which in this case is a boolean, is at the end. This may look confusing considering all of the types next to each other and separated with “-$>$”. It is important to remember that the last type is the return type and there can be as many input types as needed. Also using “ :: “ between a function or variable name and its type can look strange at first but it is generally easy to get used to. In a way, it can be advantageous in the aspect that it stands out which is optimal when defining the type of a new variable.
+Similar to declaration variables with types, we must do the same with functions. The first line first states the name of the function followed by\verb| :: |. After this, the function parameter types are listed. In this case there are three integer types as the parameters that represent the min, max, and input value. The last type, which in this case is a boolean, is at the end. This may look confusing considering all of the types next to each other and separated with \verb|->|. It is important to remember that the last type is the return type and there can be as many input types as needed. Also using\verb| :: |between a function or variable name and its type can look strange at first but it is generally easy to get used to. In a way, it can be advantageous in the aspect that it stands out which is optimal when defining the type of a new variable.
 
 \medskip\noindent
-The second line actually declares how the function obtains the result. The function name followed by the input variable names are located on the left hand side of the equals sign. On the other side, the computation is made with the assistance of the less than and greater than operands (which are functions themselves). In this case, it simply checks if the value is below the minimum or above the maximum.
+The second line actually defines how the function obtains the result. The function name followed by the input variable names are located on the left hand side of the equals sign. On the other side, the computation is made with the assistance of the less than and greater than operands (which are functions themselves). In this case, it simply checks if the value is below the minimum or above the maximum.
 
 \medskip\noindent
 Notice how this function declaration, when it comes down to it, is really a boolean value. This contrasts with the C function which is instructions to get this same value. This ties back to the aspect of declarative versus imperative programming.
@@ -239,11 +238,11 @@ bool out_of_range(int minBound, int maxBound, int val) {
 \end{lstlisting}
 
 \medskip\noindent
-Take your time observing the format of the syntax. The Haskell code is very similar to C in this instance. One of the biggest differences in terms of appearance is how the function declaration uses a “let” and an “in” statement. With this format, Haskell let functions are still functional programming since the function is still equivalent to a boolean value. Unlike the C code, there were no step-by-step instructions that led to a return type.
+Take your time observing the format of the syntax. The Haskell code is very similar to C in this instance. One of the biggest differences in terms of appearance is how the function declaration uses a \lstinline{let} and an “in” statement. With this format, Haskell let functions are still functional programming since the function is still equivalent to a boolean value. Unlike the C code, there were no step-by-step instructions that led to a return type.
 
 \subsection{Function "where"}
 \medskip\noindent
-Similar to “let”, “where” allows you to use multiple variables with assigned values to define the function. However, “where” does this after the initial function declaration. View this example:
+Similar to \verb|let|, \verb|where| allows you to use multiple variables with assigned values to define the function. However, \verb|where| does this after the initial function declaration. View this example:
 
 \begin{lstlisting}[style=HaskellStyle]
 -- HASKELL
@@ -255,11 +254,11 @@ out_of_range minBound maxBound val = out_of_lower_bound || out_of_upper_bound
 \end{lstlisting}
 
 \medskip\noindent
-In my opinion, “where” functions look much cleaner and readable than “let” functions, but your choice is obviously up to you. Also, the corresponding C function would just be the same as the previous C example for “let”.
+In my opinion, \verb|where| functions look much cleaner and readable than \verb|let| functions, but your choice is obviously up to you. Also, the corresponding C function would just be the same as the previous C example for \verb|let|.
 
 \subsection{Using “if”, “else if”, “else”, and “then”}
 \medskip\noindent
-In Haskell you may also use “if”, “else if”, and “if” statements. We will use them in the same function for convenience. View the example below:
+In Haskell you may also use \verb|if| and \verb|else if|, and \verb|else| statements. We will use them in the same function for convenience. View the example below:
 
 \begin{lstlisting}[style=HaskellStyle]
 -- HASKELL
@@ -283,7 +282,7 @@ bool out_of_range(int minBound, int maxBound, int val) {
 \end{lstlisting}
 
 \medskip\noindent
-If you saw, the statements are not too different from imperative C. However, they are followed by “then” which precedes the resulting value of the function determined by the boolean statement. Also, keep in mind that in Haskell, “True” and “False” are capitalized unlike C.
+If you saw, the statements are not too different from imperative C. However, they are followed by \verb|then| which precedes the resulting value of the function determined by the boolean statement. Also, keep in mind that in Haskell, \verb|True| and \verb|False| are capitalized unlike C.
 
 \medskip\noindent
 Furthermore, this can be simplified syntactically by using guards:
@@ -299,7 +298,7 @@ out_of_range minBound maxBound val
 
 \subsection{Recursion and Pattern Matching}
 \medskip\noindent
-In imperative languages it is routine to use loops in order to obtain results and calculations from whatever the computation may be. However, in Haskell loops do not exist. You may wonder, “How am I supposed to accomplish anything then?”. The answer is: recursion. If you are unfamiliar with recursion, it may be good to practice it in an imperative language first. Here https://www.geeksforgeeks.org/c-program-for-fibonacci-numbers/ is an article on writing a recursive C program for Fiibonacci numbers. Remember that functions are recursive when they call themselves.
+In imperative languages it is routine to use loops in order to obtain results and calculations from whatever the computation may be. However, in Haskell loops do not exist. You may wonder, “How am I supposed to accomplish anything then?”. The answer is: recursion. If you are unfamiliar with recursion, it may be good to practice it in an imperative language first. \href{https://www.geeksforgeeks.org/c-program-for-fibonacci-numbers/}{Here} is an article on writing a recursive C program for Fiibonacci numbers. Remember that functions are recursive when they call themselves.
 
 \medskip\noindent
 For our example, we will also be doing a recursive Fibonacci function. We will explore pattern matching in this example too. View the Haskell sample below:
@@ -313,7 +312,7 @@ fib n | n >= 2 = fib (n-1) + fib (n-2)
 \end{lstlisting}
 
 \medskip\noindent
-You may be confused by the “|” symbol. However, it does not have any value and is just a separator. Also, the preceding second and third line: (“fib 0 = 1”) and (“fib 1 = 1”) may be confusing. This is where pattern matching comes into play. Pattern matching is like piecewise functions in math. For example, his would be the corresponding mathematical piecewise function for the Fibonacci function:
+You may be confused by the | symbol. However, it does not have any value and is just a separator. Also, the preceding second and third line: \verb|fib 0 = 1| and \verb|fib 1 = 1| may be confusing. This is where pattern matching comes into play. Pattern matching is like piecewise functions in math. For example, his would be the corresponding mathematical piecewise function for the Fibonacci function:
 
 \begin{equation*}
 fib(n)=\begin{cases}
@@ -349,18 +348,384 @@ int fib(int n) {
 
 \section{Programming Languages Theory}
 
-In this section you will show what you learned about the theory of programming languages. 
+\subsection{Introduction to String Rewriting}
+
+\medskip\noindent
+Why Should One Study Abstract Reduction Systems?
+
+\medskip\noindent
+String Rewriting, and more specifically, String Reduction Systems (ARS) are significant because they can be instantiated at various levels of abstraction. This can be done in hardware with algorithms, programming languages, and high-level software engineering. ELABORATE. ARS's can be used to demonstrate and define properties such as normal forms, termination, and confluence.
+
+\medskip\noindent
+Though the term "abstract reduction systems" may sound fancy or intimidating, it is not too different from what is studied in math at a middle-school level. Just as mathematical algebra equations can be solved in a variety of ways to obtain the same result, ARS's do the same. Equational theory and rewrite systems are almost equivalent. The main difference is that ARS's are usually evaluated from left to right, unlike algebriac equations which can be evaluated in whichever direction.
+
+
+\subsection{Brief Quickstart: What is an Abstract Reduction System (ARS)?}
+
+\medskip\noindent
+An ARS is a set of data paired with a set of rules. Oftentimes the data is referred to as objects. The set of rules define the binary relationship between objects. The notation appears as: (A, R) where A is the set of data and R is the set of rules. The binary relationship denoted by $\rightarrow$ and is called the reduction relation. ELABORATE ON DIFFERENT KINDS OF REDUCTION
+
+\medskip\noindent
+View this simple ARS example:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen1}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c\} \\ R = \{(a, b), (a, c)\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+We obtain that our set of objects (A) consists of a, b, and c. From (a, b) and (a, c), we also see that our rules are that a $\rightarrow$ b and a $\rightarrow$ c. These rules define the binary relationship between a, b, and c.
+
+\medskip\noindent
+Here is another example of a simple ARS where A = \{a, b\} and R = {(a, b), (b, b)\}. The visual of this is:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen2}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b\} \\ R = \{(a, b), (b, b)\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+TALK ABOUT THE UNIQUENESS OF THIS ARS AND TRANSITION TO HOW THERE ARE INIFINITE POSSIBILITIES ALL WITH THEIR OWN SPECIAL PROPERTIES AND FEATURES
+
+\medskip\noindent
+There are infinite ARS examples that can be viewed for further exploration. For the purpose of keeping this quickstart brief, we will move on and view more specific examples.
+
+
+\subsection{Significant Properties of Abstract Reduction Systems}
+
+\subsubsection{Termination}
+
+\medskip\noindent
+From basic intuition you may have guessed that if an ARS is terminating, then it will always stop at some point when executed. If you have guessed this, then you are correct. When there are no loops in an ARS, it will eventually terminate. Here are some examples of terminating and non-terminating ARS’s.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen3}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b\} \\ R = \{(a, b)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen4}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c, d\} \\ R = \{(a, b), (a, c), (c,d)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen5}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a\} \\ R = \{\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+Note how in all of these examples above, the ARS reaches a definite end at some point. Therefore, it is terminating. Here are some examples of non-terminating ARS's. ELABORATE
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen6}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b\} \\ R = \{(a, a), (a, b)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen7}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c\} \\ R = \{(a, b), (b, b), (a, c)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen8}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a\} \\ R = \{a, a\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+Notice how in all of these examples there is a loop that prevents the ARS from completely terminating. Even if one path allows for termination, if there are any portions of the ARS where it could loop, the entire ARS is considered non-terminating. When an ARS has a loop, it is non-deterministic, meaning that it will not have the same result every time. ELABORATE
+
+
+\subsubsection{Unique Normal Form (UNF)}
+
+\medskip\noindent
+To define a unique normal form, we must first define a normal form. A normal form is an object that no rules can apply to. This also implies that it is the end of the computation and can be recognized when there are no arrows stemming from the object. Here are some examples of normal forms:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen9}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c\} \\ R = \{(a, b), (a, c)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen10}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c\} \\ R = \{(a, a), (a, b), (a, c)\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+A unique normal form (UNF) is the same thing, except it is the one and only normal form of the ARS. It is called the “unique” normal form because it is the only normal form that the ARS will result in. ELABORATE. Here are some examples of unique normal forms:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen11}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b\} \\ R = \{(a, b)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen12}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ \{a, b, c, d\} \\ R = \{(a, b), (a, c), (b, d), (c, d)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen13}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c, d\} \\ R = \{(a, a), (a, b), (a, c), (b, d), (c, d)\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+As you can see, both of these examples reveal that each ARS leads to one UNF. Keep in mind that having a UNF does not imply that the ARS will be deterministic, since there can be a UNF in an ARS with loops. The third ARS above is an example of this. CONCLUDE
+
+
+\subsubsection{Confluence}
+
+\medskip\noindent
+INTRODUCE AND ELABORATE ON CONFLUENCE. A simple way to think of this is that a confluent ARS has a peak for every valley. In the example below, a, b, and c represent the peak and b, c, and d represent the valley.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen14}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c ,d\} \\ R = \{(a, b), (a, c), (b, d), (c, d)\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+Furthermore, if the ARS can take multiple routes to achieve the same result, then it is confluent. This can be seen in the confluent example above, since both routes (a $\rightarrow$ b $\rightarrow$ d) and (a $\rightarrow$ c $\rightarrow$ d) lead to the same result. Here are more examples of confluent ARS's.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen15}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c, d\} \\ R = \{(a, a), (a, b), (a, c), (b, d), (c, d)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{gen16}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c\} \\ R = \{(a, b), (a, c), (b, a), (c, a)\}
+    \endtabular}
+\end{figure}
+
+
+\subsection{Relationships Between the Properties of Abstract Reduction Systems}
+
+\medskip\noindent
+By now, you may have begun to ponder the relationships between confluence, termination, and unique normal forms. More specifically, you may have suspected that not all combinations of these three properties are possible in ARS’s.
+
+\medskip\noindent
+Here is a chart with corresponding ARS's to help visualize these relationships. Keep in mind that other ARS's can apply to some of relationship combinations.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{arsComparisonGen}
+\end{figure}
+
+\medskip\noindent
+Some of the cases that you may have encountered are that if an ARS is confluent and terminating, then it must have a UNF. Similarly, if an ARS is not confluent and then it cannot have a UNF. These relationships can be expressed in mathematical boolean notation:
+
+$\neg$ (C $\land$ T $\land$ $\neg$ UNF)
+$\neg$ ($\neg$ C $\land$ T $\land$ UNF)
+$\neg$ ($\neg$ C $\land$ $\neg$ T $\land$ UNF)
+
+\medskip\noindent
+This can be simplified to:
+
+SIMPLIFIED VERSION
+
+\medskip\noindent
+For reference, here is what the boolean notation would look like in C. MAKE SURE THIS IS CORRECT
+
+\begin{lstlisting}[style=CStyle]
+  !(C && T && !UNF)
+  !(!C && T && UNF)
+  !(!C && !T && UNF)
+\end{lstlisting}
+
+\medskip\noindent
+This can be simplified too:
+
+\begin{lstlisting}[style=CStyle]
+  C && T == UNF
+  !C && T == !UNF
+  !C && !T == !UNF
+\end{lstlisting}
+
+
+\subsection{Visualizing Reflexive, Symmetric, and Transitive Traits}
+
+\medskip\noindent
+For this tutorial we will be using multiple ARS's denoted as (A, R). For each example, set (A) will be written twice as two separate columns. The purpose of this is to help visualize reflexivity, symmetry, and transitivity while providing an additional form of visualization. Comparing these two forms of visualization should make it easier to grasps these concepts. Keep in mind that the color blue will be used to express changes to the visualzations.
+
+\subsubsection{Visualizing Reflexivity}
+
+\medskip\noindent
+Consider this ARS as both a two-column and traditional visualization.
+
+\begin{figure}[h!]\
+  \centering
+  \includegraphics[scale=0.06]{s1}
+  \caption[] {
+    \tabular[t]{@{}l@{}} Two-column visualization of (A, R) \\ A = \{a, b, c ,d\} \\ R = \{(a, a), (a, c), (b, b), (c, c) (c, d), (d, d), (d, c)\}
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{v1}
+  \caption[] {
+    \tabular[t]{@{}l@{}} Traditional visualization
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+When an element points to itself, it is reflexive. In this example, every element is reflexive. Therefore, the entire set A is reflexive. However, if just one element did not point to itself, then the entire A could not be considered reflexive.
+
+\subsubsection{Visualizing Symmetry}
+
+\medskip\noindent
+Taking a look at the same example from Figure 1, notice how the lower portion of the set A appears to be symmetric. This is because not only does c $\rightarrow$ d, but d $\rightarrow$ c too. Therefore there is symmetry between these two elements. However, since the entire set A is not symmetric, the set is considered asymmetrical. To make the set symmetric, we would have to make c $\rightarrow$ a.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{s3}
+  \caption[] {
+    \tabular[t]{@{}l@{}} Symmetric two-column visualization of set A
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{v2}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c ,d\} \\ R = \{(a, a), (a, c), (b, b), (c, c), (c, a), (c, d), (d, d), (d, c)\}
+    \endtabular}
+\end{figure}
+    
+\medskip\noindent
+Notice how with symmetry, there are arrows going to and from (a, b) and (c, d). This can be rewritten with the proper notation using $\leftrightarrow$. The corrected ARS would look like:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{v3}
+  \caption[] {
+    \tabular[t]{@{}l@{}} (A, R) with proper notation
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+With this way of visualizing the set, it is easy to see if it is symmetric as the drawing itself will almost be completely symmetrical. The only asymmetric quality of the drawing is that when an element is reflexive and is pointing to itself, it does not appear to point back. Keep in mind that it is also symmetric because it is simply pointing to itself.
+
+\subsubsection{Visualizing Transitivity}
+$\xrightarrow{\text{}}$
+
+\medskip\noindent
+INTRODUCE TRANSITIVITY HERE. To simplify the visualization, we will now work with this set:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{s4}
+  \caption[] {
+    \tabular[t]{@{}l@{}} 2 column
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{v4}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c ,d\} \\ R = \{(a, c), (c, d)\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+Notice how a $\rightarrow$ c and c $\rightarrow$ d. Shouldn’t that mean that there should be a shortcut from a → d? If this shortcut was added, and R was changed to R = \{(a, c), (a, d), (c, d)\} then (a, d) would be transitive. The notation for this would be $\xrightarrow{+}$. Here is the visualization of the separated set and the ARS:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{s5}
+  \caption[] {
+    \tabular[t]{@{}l@{}} 2 column transitive
+    \endtabular}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.06]{v5}
+  \caption[] {
+    \tabular[t]{@{}l@{}} ARS = (A, R) \\ A = \{a, b, c ,d\} \\ R = \{(a, c), (a, d), (c, d)\}
+    \endtabular}
+\end{figure}
+
+\medskip\noindent
+
+\medskip\noindent
+
+\medskip\noindent
 
 \section{Project}
 
 In this section you will describe a short project. It can either be in Haskell or of a theoretical nature,
 
 \section{Conclusions}\label{conclusions}
-At the beginning of this report, we explored Haskell by working with small examples and differentiating both syntax and theoretical difference between imperative C code and functional Haskell Code. This will be more elaborate when the rest of the report is completed.
+At the beginning of this report, we explored Haskell by working with small examples and differentiating both syntax and theoretical difference between imperative C code and functional Haskell Code. This will be more elaborate when the rest of the report is completed. CONCLUDE THEORY.
 
 \begin{thebibliography}{99}
+
 \bibitem[PL]{PL} \href{https://github.com/alexhkurz/programming-languages-2021/blob/main/README.md}{Programming Languages 2021}, Chapman University, 2021.
+
+\bibitem[HI]{HI} \href{https://www.youtube.com/watch?v=Vgu82wiiZ90&list=PLe7Ei6viL6jGp1Rfu0dil1JH1SHk9bgDV&index=1}{Haskell for Imperative Programmers}, Philipp Hagenlocher, 2020.
+
+\bibitem[HI]{HI} \href{https://www.youtube.com/watch?v=Vgu82wiiZ90&list=PLe7Ei6viL6jGp1Rfu0dil1JH1SHk9bgDV&index=1}{Haskell for Imperative Programmers}, Philipp Hagenlocher, 2020.
+
+\bibitem[HR]{HR} \href{https://en.wikibooks.org/wiki/Haskell/Recursion}{Haskell/Recursion}, WikiBooks, 2020.
+
+\bibitem[PM]{PM} \href{https://stackoverflow.com/questions/2225774/haskell-pattern-matching-what-is-it}{Pattern Matching}, Stack Overflow, 2010.
+
+\bibitem[LE]{LE} \href{https://wiki.haskell.org/Lazy_evaluation}{Lazy Evaluation}, Haskell Wiki, 2021.
+
+\bibitem[ID]{ID} \href{https://learntocodetogether.com/imperative-vs-declarative-programming/}{Imperative vs. Declarative Programming}, Learn To Code Together, 2019.
+
+\bibitem[HP]{HP} \href{https://wiki.haskell.org/Pure}{Pure}, Haskell Wiki, 2021.
+
 \bibitem[GD]{GD} \href{https://docs.google.com/document/d/1e3_r3ifWnFcBaKs21iCF-OhED9x0NcDK59SA80lQjXY/edit?usp=sharing}{Google Doc}, I will cite the sources linked at the end of this doc.
+
 \end{thebibliography}
 
 \end{document}
