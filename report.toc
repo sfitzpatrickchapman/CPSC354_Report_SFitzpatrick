@@ -1,25 +1,29 @@
 \contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
 \contentsline {section}{\numberline {2}Haskell}{2}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Preparation for Haskell}{2}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Introduction}{2}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Declecaring Variables with Types}{3}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Defining a Function}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.2}Introduction}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Declaring Variables with Types}{4}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Defining a Function}{5}{subsection.2.4}%
 \contentsline {subsection}{\numberline {2.5}Calling a Function}{5}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Function "let"}{5}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.6}Function "let"}{6}{subsection.2.6}%
 \contentsline {subsection}{\numberline {2.7}Function "where"}{6}{subsection.2.7}%
-\contentsline {subsection}{\numberline {2.8}Using “if”, “else if”, “else”, and “then”}{6}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.8}Using “if”, “else if”, “else”, and “then”}{7}{subsection.2.8}%
 \contentsline {subsection}{\numberline {2.9}Recursion and Pattern Matching}{7}{subsection.2.9}%
 \contentsline {section}{\numberline {3}Programming Languages Theory}{8}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Introduction to String Rewriting}{8}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Brief Quickstart: What is an Abstract Reduction System (ARS)?}{8}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Significant Properties of Abstract Reduction Systems}{9}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Termination}{9}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Unique Normal Form (UNF)}{10}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Confluence}{11}{subsubsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.4}Relationships Between the Properties of Abstract Reduction Systems}{12}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Visualizing Reflexive, Symmetric, and Transitive Traits}{13}{subsection.3.5}%
-\contentsline {subsubsection}{\numberline {3.5.1}Visualizing Reflexivity}{13}{subsubsection.3.5.1}%
-\contentsline {subsubsection}{\numberline {3.5.2}Visualizing Symmetry}{14}{subsubsection.3.5.2}%
-\contentsline {subsubsection}{\numberline {3.5.3}Visualizing Transitivity}{15}{subsubsection.3.5.3}%
-\contentsline {section}{\numberline {4}Project}{15}{section.4}%
-\contentsline {section}{\numberline {5}Conclusions}{16}{section.5}%
+\contentsline {subsubsection}{\numberline {3.3.2}Unique Normal Form (UNF)}{11}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Confluence}{12}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Relationships Between the Properties of Abstract Reduction Systems}{13}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Visualizing Reflexive, Symmetric, and Transitive Traits}{14}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Visualizing Reflexivity}{15}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Visualizing Symmetry}{15}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.3}Visualizing Transitivity}{16}{subsubsection.3.5.3}%
+\contentsline {section}{\numberline {4}Project}{18}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Introduction to Lindenmayer Systems}{18}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Rules of Lindenmayer Systems}{18}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Lindenmayer System Example Walkthrough}{19}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}More Lindenmayer Examples}{20}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Conclusions}{23}{section.5}%
